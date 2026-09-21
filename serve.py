@@ -10,10 +10,11 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 class H(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         p = self.path.split('?')[0]
-        if p.endswith('.html') or p in ('/', '/sw.js', '/manifest.webmanifest'):
-            self.send_header('Cache-Control', 'no-cache')
-        elif p.endswith(('.png', '.css', '.js')):
+        if p.endswith(('.png', '.ico')):
             self.send_header('Cache-Control', 'max-age=604800')
+        else:
+            # html/js/css/manifest всегда сверяются с сервером — правки подхватываются сразу
+            self.send_header('Cache-Control', 'no-cache')
         super().end_headers()
 
     def log_message(self, *a):

@@ -1,6 +1,6 @@
 /* FitTrack service worker: кэширует оболочку приложения.
    Активируется только при HTTPS (localhost или хостинг). */
-var CACHE = 'fittrack-v1';
+var CACHE = 'fittrack-v3';
 var ASSETS = [
   './', './index.html', './style.css',
   './js/db.js', './js/core.js', './js/screen-dashboard.js', './js/screen-food.js',
@@ -11,7 +11,13 @@ var ASSETS = [
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
-    caches.open(CACHE).then(function (c) { return c.addAll(ASSETS); }).then(function () { return self.skipWaiting(); })
+    caches.open(CACHE).then(function (c) {
+      /* cache:'reload' — берём файлы с сервера, минуя HTTP-кэш браузера,
+         иначе новая версия SW может закэшировать старые файлы */
+      return Promise.all(ASSETS.map(function (a) {
+        return fetch(new Request(a, { cache: 'reload' })).then(function (r) { return c.put(a, r); });
+      }));
+    }).then(function () { return self.skipWaiting(); })
   );
 });
 

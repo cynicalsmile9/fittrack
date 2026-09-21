@@ -154,7 +154,10 @@
     });
     U.$('#backBtn').addEventListener('click', App.pop);
     U.$('#settingsBtn').addEventListener('click', function () {
-      if (App.views.settings) App.push({ title: 'Настройки', render: App.views.settings });
+      if (App.views.settings) {
+        var v = App.views.settings();
+        App.push({ title: v.title, render: v.render });
+      }
     });
   }
 
