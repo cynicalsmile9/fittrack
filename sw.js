@@ -1,12 +1,13 @@
 /* FitTrack service worker: кэширует оболочку приложения.
    Активируется только при HTTPS (localhost или хостинг). */
-var CACHE = 'fittrack-v3';
+var CACHE = 'fittrack-v4';
+var V = '?v=3';
 var ASSETS = [
-  './', './index.html', './style.css',
-  './js/db.js', './js/core.js', './js/screen-dashboard.js', './js/screen-food.js',
-  './js/screen-workout.js', './js/screen-analytics.js', './js/screen-history.js',
-  './js/screen-settings.js',
-  './manifest.webmanifest', './icon-192.png', './icon-512.png'
+  './', './index.html', './style.css' + V,
+  './js/db.js' + V, './js/core.js' + V, './js/screen-dashboard.js' + V, './js/screen-food.js' + V,
+  './js/screen-workout.js' + V, './js/screen-analytics.js' + V, './js/screen-history.js' + V,
+  './js/screen-settings.js' + V,
+  './manifest.webmanifest' + V, './icon-192.png', './icon-512.png'
 ];
 
 self.addEventListener('install', function (e) {
