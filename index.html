@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FitTrack">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>FitTrack — вес, питание, тренировки</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <button class="iconbtn" id="backBtn" hidden aria-label="Назад">‹</button>
+    <div class="topbar-title" id="topbarTitle">Сегодня</div>
+    <button class="iconbtn" id="settingsBtn" aria-label="Настройки">⚙</button>
+  </header>
+  <main id="screen"></main>
+  <nav class="bottomnav" id="bottomnav">
+    <button data-nav="dashboard"><span class="nv-ico">⚖️</span><span>Сегодня</span></button>
+    <button data-nav="food"><span class="nv-ico">🍽</span><span>Еда</span></button>
+    <button data-nav="workout"><span class="nv-ico">🏋️</span><span>Тренировки</span></button>
+    <button data-nav="analytics"><span class="nv-ico">📊</span><span>Аналитика</span></button>
+    <button data-nav="history"><span class="nv-ico">🕘</span><span>История</span></button>
+  </nav>
+</div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+<script src="js/db.js"></script>
+<script src="js/core.js"></script>
+<script src="js/screen-dashboard.js"></script>
+<script src="js/screen-food.js"></script>
+<script src="js/screen-workout.js"></script>
+<script src="js/screen-analytics.js"></script>
+<script src="js/screen-history.js"></script>
+<script src="js/screen-settings.js"></script>
+<script>App.init();</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () { /* нет HTTPS — офлайн-режим недоступен, приложение всё равно работает */ });
+  });
+}
+</script>
+</body>
+</html>
